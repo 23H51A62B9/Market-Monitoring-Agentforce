@@ -1,0 +1,123 @@
+<template>
+    <lightning-card title="Pre-Call Brief" icon-name="standard:contact">
+        <div class="slds-p-around_medium">
+
+            <!-- Loading State -->
+            <template if:false={brief.clientName}>
+                <template if:false={error}>
+                    <lightning-spinner 
+                        alternative-text="Loading..." 
+                        size="small">
+                    </lightning-spinner>
+                </template>
+                <template if:true={error}>
+                    <p class="slds-text-color_error">
+                        Error: {error.body.message}
+                    </p>
+                </template>
+            </template>
+
+            <!-- Main Content -->
+            <template if:true={brief.clientName}>
+
+                <!-- Client Name -->
+                <h2 class="slds-text-heading_medium slds-m-bottom_small">
+                    {brief.clientName}
+                </h2>
+
+                <!-- KPI Grid -->
+                <template if:true={brief.latestSnapshot}>
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-label">Total AUM</div>
+                            <div class="kpi-value">
+                                ₹{brief.latestSnapshot.Total_AUM__c}
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">Risk Score</div>
+                            <div class="kpi-value">
+                                {brief.latestSnapshot.Risk_Score__c}/10
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">Equity Exposure</div>
+                            <div class="kpi-value">
+                                {brief.latestSnapshot.Equity_Exposure_Pct__c}%
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Relationship Details -->
+                <p class="section-title">Relationship Details</p>
+                <div class="detail-row">
+                    <span class="detail-label">Family Milestones</span>
+                    <span class="detail-value">{brief.familyMilestones}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Recent Work History</span>
+                    <span class="detail-value">{brief.recentWorkHistory}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Last Contact</span>
+                    <span class="detail-value">{brief.lastContactDate}</span>
+                </div>
+                <template if:true={brief.commPref}>
+                    <div class="detail-row">
+                        <span class="detail-label">Preferred Channel</span>
+                        <span class="detail-value">
+                            {brief.commPref.Preferred_Channel__c}
+                        </span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Language</span>
+                        <span class="detail-value">
+                            {brief.commPref.Language_Preference__c}
+                        </span>
+                    </div>
+                </template>
+
+                <!-- Financial Accounts -->
+                <p class="section-title">Financial Accounts</p>
+                <template for:each={brief.accounts} for:item="acc">
+                    <div key={acc.Id} class="list-item">
+                        <div class="item-left">
+                            <span class="item-title">{acc.Name}</span>
+                            <span class="item-subtitle">{acc.Type}</span>
+                        </div>
+                        <span class="item-right">Active</span>
+                    </div>
+                </template>
+
+                <!-- Recent Interactions -->
+                <p class="section-title">Recent Interactions</p>
+                <template for:each={brief.recentActivities} for:item="log">
+                    <div key={log.Id} class="list-item">
+                        <div class="item-left">
+                            <span class="item-title">
+                                {log.Activity_Type__c}
+                            </span>
+                            <span class="item-subtitle">
+                                {log.Activity_DateTime__c}
+                            </span>
+                        </div>
+                        <span class="item-right">{log.Status__c}</span>
+                    </div>
+                </template>
+
+                <!-- Simulate Market Crash Button -->
+                <div class="slds-m-top_medium">
+                    <lightning-button
+                        label="Simulate Market Crash"
+                        icon-name="utility:warning"
+                        variant="destructive"
+                        onclick={handleSimulateCrash}
+                        disabled={isSimulating}>
+                    </lightning-button>
+                </div>
+
+            </template>
+        </div>
+    </lightning-card>
+</template>

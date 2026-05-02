@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Client Communication Preference</description>
+    <enableActivities>true</enableActivities>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <label>Client Communication Preference</label>
+    <nameField>
+        <label>Preference ID</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Client Communication Preferences</pluralLabel>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

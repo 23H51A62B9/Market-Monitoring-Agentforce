@@ -1,0 +1,23 @@
+# Salesforce DX project
+.sfdx/
+.sf/
+.vscode/
+node_modules/
+
+# Local configuration
+.env
+config/
+lastdeploy.json
+org_list.json
+deploy_errors.json
+deploy_final.json
+deploy_output.json
+deploy_output2.json
+deploy_output3.json
+
+# Temporary files
+temp_deploy/
+temp_puppeteer/
+test_extract/
+*.zip
+*.log
